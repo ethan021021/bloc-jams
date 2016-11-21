@@ -6,10 +6,11 @@ $(window).load(function() {
     animatePoints();
   }
 
-  var scrollDistance = $('.selling-points').offset().top - $(window).innerHeight + 200;
+  var scrollDistance = $('.selling-points').offset().top - $(window).height() + 200;
 
 
   $(window).scroll(function(event) {
+    console.log(event);
     if ($(window).scrollTop() >= scrollDistance) {
       animatePoints();
     }
