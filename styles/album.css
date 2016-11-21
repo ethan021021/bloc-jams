@@ -4,6 +4,7 @@ body.album {
   background-attachment: fixed;
   background-position: center center;
   background-size: cover;
+  padding-bottom: 200px;
 }
 
 .album-cover-art {
@@ -36,7 +37,7 @@ body.album {
 
 .album-view-song-list {
   width: 90%;
-  margin: 15.rem auto;
+  margin: 15rem auto;
   font-weight: 300;
   font-size: 0.75em;
   border-collapse: collapse;
