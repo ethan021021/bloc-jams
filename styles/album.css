@@ -37,7 +37,7 @@ body.album {
 
 .album-view-song-list {
   width: 90%;
-  margin: 15rem auto;
+  margin: 15rem;
   font-weight: 300;
   font-size: 0.75em;
   border-collapse: collapse;
