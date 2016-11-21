@@ -27,6 +27,20 @@ var albumMarconi = {
      ]
  };
 
+ var albumKanye =  {
+   title: 'College Dropout',
+   artist: 'Kanye West',
+   label: 'GOOD Music',
+   year: '2004',
+   albumArtUrl: 'assets/images/album_covers/Kanyewest_collegedropout.jpg',
+   songs: [
+     { title: 'Spaceship', duration: "10:00" },
+     { title: 'Other Way', duration: "5:15" },
+     { title: 'Yo', duration: "6:78"},
+     { title: 'Okay then', duration: "4:42"}
+   ]
+ };
+
  var createSongRow = function(songNumber, songName, songLength) {
       var template =
          '<tr class="album-view-song-item">'
@@ -63,5 +77,16 @@ var albumMarconi = {
   };
 
   window.onload = function() {
-    setCurrentAlbum(albumMarconi);
+    setCurrentAlbum(albumPicasso);
+    var albumArtObj = document.getElementsByClassName('album-cover-art');
+    var counter = 1;
+    var albums = [albumPicasso, albumKanye, albumMarconi];
+    albumArtObj[0].addEventListener("click", function() {
+      setCurrentAlbum(albums[counter]);
+      counter++;
+      console.log(counter);
+      if (counter == albums.length) {
+        counter = 0;
+      }
+    });
   }
