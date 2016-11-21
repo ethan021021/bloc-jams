@@ -69,6 +69,10 @@ var albumMarconi = {
         currentParent = currentParent.parentElement;
       }
       return currentParent;
+    } else if (element.parentElement.className == null){
+      alert("No parent found with that class name");
+    } else {
+      alert("No parent found");
     }
   };
 
