@@ -90,6 +90,11 @@
       }
   };
 
+  var setSong = function(songNumber) {
+    currentlyPlayingSongNumber = songNumber;
+    currentSongFromAlbum = songNumber;
+  };
+
   var trackIndex = function(album, song) {
     return album.songs.indexOf(song);
   };
