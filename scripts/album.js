@@ -3,7 +3,7 @@
          '<tr class="album-view-song-item">'
        + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
        + '  <td class="song-item-title">' + songName + '</td>'
-       + '  <td class="song-item-duration">' + songLength + '</td>'
+       + '  <td class="song-item-duration">' + filterTimeCode(songLength) + '</td>'
        + '</tr>'
        ;
 
@@ -55,7 +55,7 @@
        var offHover = function(event) {
          var songNumberCell = $(this).find('.song-item-number');
          var songNumber = parseInt(songNumberCell.attr('data-song-number'));
-         console.log("songNumber type is " + typeof songNumber + "\n and currentlyPlayingSongNumber type is " + typeof currentlyPlayingSongNumber);
+        //  console.log("songNumber type is " + typeof songNumber + "\n and currentlyPlayingSongNumber type is " + typeof currentlyPlayingSongNumber);
          if (songNumber !== currentlyPlayingSongNumber) {
            songNumberCell.html(songNumber);
          }
@@ -71,6 +71,7 @@
     $('.currently-playing .artist-name').text(currentAlbum.artist);
     $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
     $('.main-controls .play-pause').html(playerBarPauseButton);
+    setTotalTimeInPlayerBar(currentSongFromAlbum.duration);
   };
 
   var setCurrentAlbum = function(album) {
@@ -105,10 +106,34 @@
       currentSoundFile.bind('timeupdate', function(event) {
         var seekBarFillRatio = this.getTime() / this.getDuration();
         var $seekBar = $('.seek-control .seek-bar');
-
         updateSeekPercentage($seekBar, seekBarFillRatio);
+        setCurrentTimeInPlayerBar(this.getTime());
       });
     }
+  };
+
+  var setCurrentTimeInPlayerBar = function(currentTime) {
+    var playerBarTime = $('.current-time');
+    playerBarTime.html(filterTimeCode(currentTime));
+  };
+
+  var filterTimeCode = function(timeInSeconds) {
+    // var seconds = parseInt(timeInSeconds);
+    // var min = 0;
+    // while(seconds > 59) {
+    //   seconds -= 60;
+    //   min++;
+    // }
+    // return min + ":" + seconds;
+    var converted = parseInt(timeInSeconds);
+    var seconds = Math.floor(converted % 3600 % 60);
+    var minutes = Math.floor(seconds % 3600 / 60);
+    return minutes + ":" + seconds;
+  };
+
+  var setTotalTimeInPlayerBar = function(totalTime) {
+    var playerBarTime = $('.total-time');
+    playerBarTime.html(filterTimeCode(totalTime));
   };
 
   var updateSeekPercentage = function($seekBar, seekBarFillRatio) {
