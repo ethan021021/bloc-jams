@@ -118,17 +118,17 @@
   };
 
   var filterTimeCode = function(timeInSeconds) {
-    // var seconds = parseInt(timeInSeconds);
-    // var min = 0;
-    // while(seconds > 59) {
-    //   seconds -= 60;
-    //   min++;
-    // }
-    // return min + ":" + seconds;
-    var converted = parseInt(timeInSeconds);
-    var seconds = Math.floor(converted % 3600 % 60);
-    var minutes = Math.floor(seconds % 3600 / 60);
-    return minutes + ":" + seconds;
+    var seconds = parseInt(timeInSeconds);
+    var min = 0;
+    while(seconds > 59) {
+      seconds -= 60;
+      min++;
+    }
+    return min + ":" + seconds;
+    // var converted = parseInt(timeInSeconds);
+    // var seconds = Math.floor(converted % 3600 % 60);
+    // var minutes = Math.floor(seconds % 3600 / 60);
+    // return minutes + ":" + seconds;
   };
 
   var setTotalTimeInPlayerBar = function(totalTime) {
@@ -156,6 +156,12 @@
 
       var seekBarFillRatio = offsetX / barWidth;
 
+      if ($(this).parent().attr('class') == 'seek-control') {
+        seek(seekBarFillRatio * currentSoundFile.getDuration());
+      } else {
+        setVolume(seekBarFillRatio * 100);
+      }
+
       updateSeekPercentage($(this), seekBarFillRatio);
     });
 
@@ -166,6 +172,12 @@
         var offsetX = event.pageX - $seekBar.offset().left;
         var barWidth = $seekBar.width();
         var seekBarFillRatio = offsetX / barWidth;
+
+        if ($seekBar.parent().attr('class') == 'seek-control') {
+          seek(seekBarFillRatio * currentSoundFile.getDuration());
+        } else {
+          setVolume(seekBarFillRatio);
+        }
 
         updateSeekPercentage($seekBar, seekBarFillRatio);
       });
@@ -238,7 +250,7 @@
     if (currentSoundFile) {
       currentSoundFile.setTime(time);
     }
-  };
+  }
 
   var setVolume = function(volume) {
     if (currentSoundFile) {
