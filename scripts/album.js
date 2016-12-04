@@ -1,4 +1,6 @@
  var createSongRow = function(songNumber, songName, songLength) {
+
+      //create template
       var template =
          '<tr class="album-view-song-item">'
        + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
@@ -7,9 +9,11 @@
        + '</tr>'
        ;
 
+       //create jquery var for template called row
        var $row = $(template);
 
        var clickHandler = function() {
+         console.log($(this));
          var songNumber = parseInt($(this).attr('data-song-number'));
 
         	if (currentlyPlayingSongNumber !== null) {
@@ -96,7 +100,7 @@
 
       // #4
       for (var i = 0; i < album.songs.length; i++) {
-          var $newRow = createSongRow(i + 1,album.songs[i].title,album.songs[i].duration);
+          var $newRow = createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
           $albumSongList.append($newRow);
       }
   };
